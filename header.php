@@ -17,9 +17,9 @@
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed site">
 	<header id="masthead" class="site-header" role="banner">
-		<div class="logo">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<img src="/wp-content/themes/t3bits/images/t3bits.png" alt="T3Bits" />
+		<div itemscope itemtype="http://schema.org/Organization" class="logo">
+			<a itemprop="url" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+				<img itemprop="logo" src="/wp-content/themes/t3bits/images/t3bits.png" alt="T3Bits" />
 			</a>
 		</div>
 		<hgroup>
