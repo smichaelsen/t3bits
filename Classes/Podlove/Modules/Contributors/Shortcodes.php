@@ -1,7 +1,9 @@
 <?php
 
 namespace T3Bits\Podlove\Modules\Contributors;
-use \Podlove\Model;
+use Podlove\Model;
+use Podlove\Modules\Contributors\Model\Contributor;
+use Podlove\Modules\Contributors\Model\EpisodeContribution;
 
 class Shortcodes extends \Podlove\Modules\Contributors\Shortcodes {
 
@@ -18,14 +20,14 @@ class Shortcodes extends \Podlove\Modules\Contributors\Shortcodes {
 
 		// fetch contributions
 		if ($episode = Model\Episode::get_current()) {
-			$contributions = \Podlove\Modules\Contributors\Model\EpisodeContribution::all('WHERE `episode_id` = "' . $episode->id . '" ORDER BY `position` ASC');
+			$contributions = EpisodeContribution::all('WHERE `episode_id` = "' . $episode->id . '" ORDER BY `position` ASC');
 		} else {
-			$contributions = \Podlove\Modules\Contributors\Model\EpisodeContribution::all('GROUP BY contributor_id ORDER BY `position` ASC');
+			$contributions = EpisodeContribution::all('GROUP BY contributor_id ORDER BY `position` ASC');
 		}
 		$list = array();
 		foreach ($contributions as $contribution) {
-			/** @var \Podlove\Modules\Contributors\Model\EpisodeContribution $contribution */
-			/** @var \Podlove\Modules\Contributors\Model\Contributor $contributor */
+			/** @var EpisodeContribution $contribution */
+			/** @var Contributor $contributor */
 			$contributor = $contribution->getContributor();
 			$list[] = '<span>'
 				. '<span class="avatar">' . $contributor->getAvatar(18) . '</span>'
@@ -40,7 +42,12 @@ class Shortcodes extends \Podlove\Modules\Contributors\Shortcodes {
 		return $html;
 	}
 
-	protected function wrapWithLink($contributor, $name) {
+	/**
+	 * @param Contributor $contributor
+	 * @param string $name
+	 * @return string
+	 */
+	protected function wrapWithLink(Contributor $contributor, $name) {
 		return $name;
 	}
 
